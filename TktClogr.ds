@@ -1,0 +1,26 @@
+// TktClogr Zoho Deluge script (for spamming an arbitrary amount of tickets into your Zoho Desk for testing/debugging purposes).
+//
+void TktClogr()
+{
+	range = #;//n-1
+	// Deduce 1 from your desired amount because the program starts counting from 0.
+	//-------------------------------------------------------------------------------
+  //
+	OrgID = #########;// Your unique Zoho tenant ID here.
+	//---
+	listTrick = leftPad(" ",range).replaceAll(" ",",");
+	Enum = listTrick.toList();
+	//---
+	recordValues = List();
+	for each index subjNum in Enum
+	{
+		recordValues.add({"subject":"Test Ticket #" + subjNum,"departmentId":"YOUR_DEPT_ID_HERE","contactId":"YOUR_CONTACT_ID_HERE"});
+	}
+	//---
+	for each index recordValue in recordValues
+	{
+		keyValue = recordValues.get(recordValue);
+		createTkt = zoho.desk.create(OrgID,"tickets",keyValue);
+		info createTkt;
+	}
+}
